@@ -71,6 +71,10 @@ class EmploisController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = $form->get('User')->getData();
+            $emploi->setnom($user->getnom());
+            $emploi->setprenom($user->getprenom());
+            $emploi->setCIN($user->getcin());
             $entityManager->flush();
 
             return $this->redirectToRoute('emplois_index', [], Response::HTTP_SEE_OTHER);

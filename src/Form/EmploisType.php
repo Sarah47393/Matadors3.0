@@ -19,9 +19,7 @@ class EmploisType extends AbstractType
         $builder
             ->add('Ddebut')
             ->add('Dfin')
-            ->add('Password' ,PasswordType::class ,([
-            
-                ]))
+         
             ->add('User' , EntityType::class, array(
                 'class' => 'App\Entity\User',
                 'choice_label' => function ($User){ 
