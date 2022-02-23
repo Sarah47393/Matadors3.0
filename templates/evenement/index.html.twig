@@ -1,0 +1,52 @@
+{% extends 'back.office.html.twig' %}
+
+{% block title %}Evenement {% endblock %}
+
+{% block body %}
+<section id="user" class="user">
+    <br>
+    <br>
+    <br>
+    <div class="content-wrapper">
+    <h1>Evenement </h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NomEvenement</th>
+                <th>Description</th>
+                <th>NombreDeParticipants</th>
+                <th>QrCode</th>
+                <th>Billet</th>
+                <th>DateDeEvenement</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for evenement in evenements %}
+            <tr>
+                <td>{{ evenement.id }}</td>
+                <td>{{ evenement.NomEvenement }}</td>
+                <td>{{ evenement.Description }}</td>
+                <td>{{ evenement.NombreDeParticipants }}</td>
+                <td><img src="{{ asset('Uploads/image/' ~evenement.QrCode) }}"></td>
+                <td>{{ evenement.Billet }}</td>
+                <td>{{ evenement.DateDeEvenement ? evenement.DateDeEvenement|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('evenement_show', {'id': evenement.id}) }}">Afficher les détails</a>
+                    <a href="{{ path('evenement_edit', {'id': evenement.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+<a class="nav-link btn btn-success create-new-button" href="{{ path('evenement_new') }}">Ajouter un nouveau évènement</a>
+
+</div>
+</section><!-- End Contact Section -->
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'front.office.html.twig' %}
+
+{% block title %}Evenement index{% endblock %}
+
+{% block body %}
+<section id="user" class="user">
+    
+    <div class="content-wrapper">
+    <h1>Evenement</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                
+                <th>NomEvenement</th>
+                <th>Description</th>
+                <th>NombreDeParticipants</th>
+                <th>QrCode</th>
+                <th>Billet</th>
+                <th>DateDeEvenement</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+        {% for evenement in evenements %}
+            <tr>
+                
+                <td>{{ evenement.NomEvenement }}</td>
+                <td>{{ evenement.Description }}</td>
+                <td>{{ evenement.NombreDeParticipants }}</td>
+                <td><img src="{{ asset('Uploads/image/' ~evenement.QrCode) }}"style="width: 100px"></td>
+                <td>{{ evenement.Billet }}</td>
+                <td>{{ evenement.DateDeEvenement ? evenement.DateDeEvenement|date('Y-m-d') : '' }}</td>
+               
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
+</div>
+</section><!-- End Contact Section -->
+{% endblock %}

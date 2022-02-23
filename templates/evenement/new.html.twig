@@ -1,0 +1,16 @@
+{% extends 'back.office.html.twig' %}
+
+{% block title %}Ajouter un nouveau évènement{% endblock %}
+
+{% block body %}
+
+    <h1>Ajouter un nouveau évènement</h1>
+
+    {{ include('evenement/_form.html.twig') }}
+
+    <a href="{{ path('evenement_index') }}">Retourner vers La liste des évènement</a>
+    <div >{{ form_rest(form) }}</div>
+            {{ form_end(form) }}
+        
+{% endblock %}
+
