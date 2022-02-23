@@ -1,0 +1,51 @@
+{% extends 'test.html.twig' %}
+
+{% block title %}Emplois index{% endblock %}
+
+{% block body %}
+<section id="user" class="user">
+    
+    <div class="content-wrapper">
+<section id="user" class="user">
+    
+    <div class="content-wrapper">
+    <h1>Emplois index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Ddebut</th>
+                <th>Dfin</th>
+                <th>nom</th>
+                <th>prenom</th>
+                <th>CIN</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for emploi in emplois %}
+            <tr>
+                <td>{{ emploi.id }}</td>
+                <td>{{ emploi.Ddebut ? emploi.Ddebut|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ emploi.Dfin ? emploi.Dfin|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ emploi.nom }}</td>
+                <td>{{ emploi.prenom }}</td>
+                <td>{{ emploi.cin }}</td>
+                <td>
+                    <a href="{{ path('emplois_show', {'id': emploi.id}) }}">show</a>
+                    <a href="{{ path('emplois_edit', {'id': emploi.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('emplois_new') }}">Create new</a>
+</div>
+</section><!-- End Contact Section -->
+{% endblock %}
