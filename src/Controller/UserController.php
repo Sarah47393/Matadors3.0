@@ -257,6 +257,18 @@ class UserController extends AbstractController
 
         return $this->redirectToRoute('user_index', [], Response::HTTP_SEE_OTHER);
     }
+      /**
+     * @Route("/{id}/delfront", name="user_deletefront", methods={"POST"})
+     */
+    public function deletefront(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($user);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('user_newfront', [], Response::HTTP_SEE_OTHER);
+    }
      
 }
 
