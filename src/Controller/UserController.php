@@ -13,12 +13,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Dompdf\Dompdf;
 use Dompdf\Options;
-
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 /**
  * @Route("/user")
  */
 class UserController extends AbstractController
 {
+    
     /**
      * @Route("/", name="user_index", methods={"GET"})
      */
@@ -28,6 +30,45 @@ class UserController extends AbstractController
             'users' => $userRepository->findAll(),
         ]);
     }
+   
+     /**
+     * @Route("/AllUsers", name="AllUsers")
+     */
+public function AllUsers(NormalizerInterface $Normalizer )
+{
+//Nous utilisons la Repository pour récupérer les objets que nous avons dans la base de données
+$repository =$this->getDoctrine()->getRepository(User::class);
+$users=$repository->FindAll();
+//Nous utilisons la fonction normalize qui transforme en format JSON nos donnée qui sont
+//en tableau d'objet Students
+$jsonContent=$Normalizer->normalize($users,'json',['groups'=>'post:read']);
+
+
+
+return new Response(json_encode($jsonContent));
+dump($jsonContent);
+die;}
+
+ /**
+     * @Route("/Usermobile/{id}", name="Usermobile/{id}")
+     */
+    public function Usermobileid(Request $request,$id,NormalizerInterface $Normalizer )
+    {
+    //Nous utilisons la Repository pour récupérer les objets que nous avons dans la base de données
+    $em=$this->getDoctrine()->getManager();
+    $student =$em->getRepository(User::class)->find($id);
+    
+    //Nous utilisons la fonction normalize qui transforme en format JSON nos donnée qui sont
+    //en tableau d'objet Students
+    $jsonContent=$Normalizer->normalize($student,'json',['groups'=>'post:read']);
+    
+ 
+return new Response(json_encode($jsonContent));
+
+}
+
+ 
+
     /**
      * @Route("/list", name="user_listpdf", methods={"GET"})
      */
@@ -95,6 +136,7 @@ class UserController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+ 
 /**
      * @Route("/newfront", name="user_newfront", methods={"GET", "POST"})
      */
@@ -130,7 +172,40 @@ class UserController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
+ /**
+     * @Route("/addUserj", name="addUserj" )
+     */
+    public function AddUserj(Request $request, NormalizerInterface $Normalizer )
+    {
+    //Nous utilisons la Repository pour récupérer les objets que nous avons dans la base de données
+   
+    //Nous utilisons la fonction normalize qui transforme en format JSON nos donnée qui sont
+    //en tableau d'objet Students
+    $em=$this->getDoctrine()->getManager();
+    $user=new User();
+   /* $datenaissance = $request->query->get("datenaissance");
+    $Nom = $request->query->get("Nom");
+    $Prenom = $request->query->get("Prenom");
+    $Role = $request->query->get("Role");
+    $Access = $request->query->get("Access");
+    $image = $request->query->get("image");
+    $CIN = $request->query->get("CIN");
+    $Password = $request->query->get("Password");*/
+    $user->setNom($request->get('Nom'));
+    $user->setPrenom($request->get('Prenom'));
+   $user->setPassword($request->get("Password"));
+    $user->setCIN($request->get("CIN"));
+    $user->setRole($request->get("Role"));
+    $user->setAccess($request->get("Access"));
+    $user->setimage($request->get("image"));
+   $user->setDatenaissance(date_create_from_format("Y-m-d",$request->get("datenaissance")));
+    $em->persist($user);
+    $em->flush();
+    $jsonContent=$Normalizer->normalize($user,'json',['groups'=>'post:read']);
+    
+    return new Response(json_encode($jsonContent));
+          
+    }
     /**
      * @Route("/{id}", name="user_show", methods={"GET"})
      */
@@ -140,6 +215,7 @@ class UserController extends AbstractController
             'user' => $user,
         ]);
     }
+      
      /**
      * @Route("/front/{id}", name="user_showfront", methods={"GET"})
      */
@@ -269,7 +345,10 @@ class UserController extends AbstractController
 
         return $this->redirectToRoute('user_newfront', [], Response::HTTP_SEE_OTHER);
     }
-     
+   
+   
+
+   
 }
 
     

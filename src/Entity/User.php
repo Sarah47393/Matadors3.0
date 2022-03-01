@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -20,23 +21,27 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("post:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=10)
      * @Assert\NotBlank(message="veuillez entrer un nom valid")
+     * @Groups("post:read")
      */
     private $Nom;
 
     /**
      * @ORM\Column(type="string", length=10)
      * @Assert\NotBlank(message="veuillez entrer un prenom valid")
+     * @Groups("post:read")
      */
     private $Prenom;
  /**
      * @ORM\Column(type="integer")
      * *@Assert\NotBlank(message="veuillez entrer un cin valid")
+     * @Groups("post:read")
      */
     private $Password;
     /**
@@ -47,25 +52,29 @@ class User
      * max = 8,
      * minMessage = "Le nom d'un article doit comporter au moins {{ limit }} caractères",
      * maxMessage = "Le nom d'un article doit comporter au plus {{ limit }} caractères")
+     * @Groups("post:read")
      */
     private $CIN;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Groups("post:read")
      */
     private $Role;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Groups("post:read")
      */
     private $Access;
     /**
      * @ORM\Column(type="string", length=255)
-     *
+     *@Groups("post:read")
      */
     private $image;
     /**
      * @ORM\Column(type="date")
+     * @Groups("post:read")
      */
     private $datenaissance;
 
