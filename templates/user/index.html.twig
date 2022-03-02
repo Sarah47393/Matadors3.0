@@ -8,7 +8,9 @@
         <div class="content-wrapper">
       
     <h1>User index</h1>
-
+    <div class="pcoded-search-box" style="position: relative; ">
+        <input onkeyup="searchEnt()" type="text" id="searchEnt" class="form-control" placeholder="Search">
+    </div>
     <table class="table"style="width: 1500px" >
         <thead>
             <tr>
@@ -25,7 +27,7 @@
         </thead>
         <tbody>
         {% for user in users %}
-            <tr>
+            <tr name="elements" id="{{'user'~ user.id}}">
                 <td>{{ user.id }}</td>
                 <td>{{ user.Nom }}</td>
                 <td>{{ user.Prenom }}</td>
@@ -46,9 +48,44 @@
         {% endfor %}
         </tbody>
     </table>
+   
+    <div class>
+        <section id="hero" class="d-flex align-items-center">
+    <script >
 
+        function searchEnt() {
+            let searchString = document.getElementById('searchEnt').value; // recuperation de l'input de la recherche
+            const elements = document.getElementsByName('elements') //recuperation de la reference du dom (liste des tr)
+            if (searchString.length!==0){
+                $.ajax({
+                    url: '/user/search1/'+searchString,
+                    success: function (data) {
+                        console.log("data :",data)
+                        for (let i = 0; i < elements.length; i++){
+                            elements[i].style.display = "none";
+                        }
+                        for (let j = 0; j < data.length; j++) {
+                            $('#user'+data[j].id).show('slow');
+                        }
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        alert("erreur lors de la recuperation des données")
+                    }
+                });
+            }else{
+                for (let i = 0; i < elements.length; i++){
+                    elements[i].style.display = "revert";
+                }
+            }
+        }
+    </script>
+    </section><!-- End Hero -->
+
+</div>
     <a href="{{ path('user_new') }}">Create new</a>
     <a href="{{ path('user_listpdf') }}">pdf</a>
+
 </div>
 </section><!-- End Contact Section -->
+
 {% endblock %}

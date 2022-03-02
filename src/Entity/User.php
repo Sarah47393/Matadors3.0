@@ -214,4 +214,51 @@ class User
 
         return $this;
     }
+    public function serialize()
+    {
+        return serialize(
+            [
+                $this->id,
+                $this->Nom,
+                $this->Prenom,
+                $this->password,
+                $this->CIN,
+                $this->Role,
+                $this->Access,
+                $this->image,
+                $this->datenaissance,
+            ]
+
+        );
+        // TODO: Implement serialize() method.
+    }
+
+    public function unserialize($string)
+    {
+        list(
+            $this->id,
+            $this->Nom,
+            $this->Prenom,
+            $this->password,
+            $this->CIN,
+            $this->Role,
+            $this->Access,
+            $this->image,
+            $this->datenaissance,
+
+            )=unserialize($string,['allowed_classes'=>false]);}
+
+        function constructEtu($nom,$Prenom,$password,$CIN,$image,$datenaissance,$role,$Access) {
+            $this->setNom($nom);
+            $this->setPrenom($Prenom);
+            $this->setPassword($password);
+            $this->setCIN($CIN);
+            $this->setimage($image);
+            $this->setdatenaissance($datenaissance);
+            $this->setRole($role);
+            $this->setAccess($Access);
+
+        }
+
+   
 }

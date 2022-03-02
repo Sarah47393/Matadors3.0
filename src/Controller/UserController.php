@@ -15,6 +15,9 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 /**
  * @Route("/user")
  */
@@ -24,10 +27,12 @@ class UserController extends AbstractController
     /**
      * @Route("/", name="user_index", methods={"GET"})
      */
-    public function index(UserRepository $userRepository): Response
-    {
+    public function index(UserRepository $userRepository,NormalizerInterface $Normalizer): Response
+    {   $repository =$this->getDoctrine()->getRepository(User::class);
+        $users=$repository->FindAll();
+        $jsonContent=$Normalizer->normalize($users,'json',['groups'=>'post:read']);
         return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
+            'users' => $userRepository->findAll(),'data'=>$jsonContent,
         ]);
     }
    
@@ -215,7 +220,61 @@ return new Response(json_encode($jsonContent));
             'user' => $user,
         ]);
     }
+        
+       /**
+     * @Route("/search1/{searchString}", name="search")
+     */
+    public function searchEnt($searchString,SerializerInterface $serializer)
+    {
+        
+        //$serializer = new Serializer([new ObjectNormalizer()]);
       
+        $repository = $this->getDoctrine()->getRepository(User::class);
+       // $students = $repository->findByid($searchString);
+       
+        //$students = $repository->findBy(array('id' => '%'.'2'));
+
+         //$users = $repository->findByExampleField($searchString);
+         
+        //$data=$serializer->normalize($users);
+       // return new JsonResponse($data);
+
+        $users = $repository->findByExampleField($searchString);
+    
+        $data = $serializer->normalize($users,'json',['groups'=>'post:read']);
+        return new JsonResponse($data);
+       // $data=$serializer->normalize("");
+       // return new Response(json_encode($data));
+    }
+     /**
+     * @Route("/search/{searchString}", name="searchEnt")
+     */
+    public function searchEnt1($searchString): JsonResponse
+    {
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $repository = $this->getDoctrine()->getRepository(student::class);
+        $students = $repository->findBynsc($searchString);
+        if (!$students) {
+            $students = $repository->findByid($searchString);
+        $data=$serializer->normalize($students);
+         
+        }else
+        {
+        $data=$serializer->normalize($students);}
+        return new JsonResponse($data);
+    }
+
+    /**
+     * @Route("/search/{searchString}", name="searchEtu")
+     */
+    public function searchEnt2($searchString): JsonResponse
+    {
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $repository = $this->getDoctrine()->getRepository(student::class);
+        $students = $repository->findByemail($searchString);
+        $data=$serializer->normalize($students);
+        return new JsonResponse($data);
+    }
      /**
      * @Route("/front/{id}", name="user_showfront", methods={"GET"})
      */
