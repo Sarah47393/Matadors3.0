@@ -10,6 +10,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\File;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 /**
  * @Route("/evenement")
@@ -31,9 +34,56 @@ class EvenementController extends AbstractController
     public function index1(EvenementRepository $evenementRepository): Response
     {
         return $this->render('evenement/index1.html.twig', [
+            'evenements' => $evenementRepository,
+        ]);
+    }    
+
+
+
+
+     /**
+     * @Route("/listevenement", name="evenement_pdf", methods={"GET"})
+     */
+    public function listevenement(EvenementRepository $evenementRepository): Response
+    {
+        // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+        // Retrieve the HTML generated in our twig file
+        $html = $this->render('evenement/listevenement.html.twig', [
             'evenements' => $evenementRepository->findAll(),
+            
+        ]);
+
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+        // Output the generated PDF to Browser (inline view)
+        $dompdf->stream("mypdf.pdf", [
+            "evenements" => true
         ]);
     }
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
 
     /**
      * @Route("/new", name="evenement_new", methods={"GET", "POST"})
@@ -127,4 +177,20 @@ class EvenementController extends AbstractController
 
         return $this->redirectToRoute('evenement_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    /**
+     * @Route("/evenement/recherche",name="recherche")
+     *
+     */
+    function recherche(EvenementRepository $repository,Request $request){
+        $data=$request->get('recherche');
+        $evenement=$repository->findBy(['NomEvenement'=>$data]);
+        return $this->render('evenement/show.html.twig',['evenements'=>$evenement]);
+    }
+
+
+
+
+
+   
 }

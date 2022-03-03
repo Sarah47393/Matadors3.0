@@ -3,7 +3,8 @@
 {% block title %}Evenement{% endblock %}
 
 {% block body %}
-    <h1>Evenement</h1>
+
+<h1>Evenement</h1>
 
     <table class="table">
         <tbody>
@@ -23,10 +24,7 @@
                 <th>NombreDeParticipants</th>
                 <td>{{ evenement.NombreDeParticipants }}</td>
             </tr>
-            <tr>
-                <th>QrCode</th>
-                <td><img src="{{ asset('Uploads/image/' ~evenement.QrCode) }}"></td>
-            </tr>
+            
             <tr>
                 <th>Billet</th>
                 <td>{{ evenement.Billet }}</td>
@@ -37,11 +35,4 @@
             </tr>
         </tbody>
     </table>
-
-    <a href="{{ path('evenement_index') }}">Retourner vers la liste des évènements</a>
-
-    <a href="{{ path('evenement_edit', {'id': evenement.id}) }}">Modifier</a>
-
-    {{ include('evenement/_delete_form.html.twig') }}
-    
-{% endblock %}
+    {% endblock %}

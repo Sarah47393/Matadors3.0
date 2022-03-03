@@ -61,7 +61,7 @@ class Evenement
     private $DateDeEvenement;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Collaborateur::class, inversedBy="evenements")
+     * @ORM\ManyToOne(targetEntity=Collaborateur::class, inversedBy="evenements",cascade={"persist","remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $collaborateur1;

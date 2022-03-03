@@ -3,6 +3,7 @@
 {% block title %}Edit Evenement{% endblock %}
 
 {% block body %}
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
     <h1>Edit Evenement</h1>
 
     {{ include('evenement/_form.html.twig', {'button_label': 'Update'}) }}

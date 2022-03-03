@@ -1,19 +1,16 @@
-{% extends 'back.office.html.twig' %}
-
-{% block title %}Evenement {% endblock %}
-
 {% block body %}
-<section id="user" class="user">
-    <br>
-    <br>
-    <br>
-    <div class="content-wrapper">
-    <h1>Evenement </h1>
+</head>
+<body>
+<h1>Liste des Evènements</h1>
 <form method="post" action="{{ path('recherche') }}">
     <label>Recherche</label>
     <input type="text"><input type="submit" value="Recherche">
-</form>  
-    <table class="table">
+</form>
+<div class="col-lg-12 stretch-card">
+
+    <div class="card">
+    <div class="card-body">
+     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -48,8 +45,4 @@
         {% endfor %}
         </tbody>
     </table>
-<a class="nav-link btn btn-success create-new-button" href="{{ path('evenement_new') }}">Ajouter un nouveau évènement</a>
-<a class="btn btn-success" href="{{path('evenement_pdf') }}">  PDF </a>
-</div>
-</section><!-- End Contact Section -->
 {% endblock %}

@@ -7,6 +7,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
+
+
 /**
  * @ORM\Entity(repositoryClass=CollaborateurRepository::class)
  */
@@ -16,6 +19,7 @@ class Collaborateur
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     *@Groups("post:read")
      */
     private $id;
 
@@ -27,6 +31,7 @@ class Collaborateur
      * minMessage = "Le nom d'un evenement doit comporter au minimum {{ limit }} caractères",
      * maxMessage = "Le nom d'un evenement doit comporter au maximum {{ limit }} caractères"
      * )
+     *@Groups("post:read")
      */
     private $NomCollaborateur;
 
@@ -37,14 +42,15 @@ class Collaborateur
      * min = 5,
      * max = 7,
      * minMessage = "Le nom d'un evenement doit comporter au minimum {{ limit }} caractères",
-     * maxMessage = "Le nom d'un evenement doit comporter au maximum {{ limit }} caractères"
-     * )
+     * maxMessage = "Le nom d'un evenement doit comporter au maximum {{ limit }} caractères")
+     *@Groups("post:read")
      */
     private $PrenomCollaborateur;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotNull
+     *@Groups("post:read")
      */
     private $Role;
 
@@ -52,6 +58,7 @@ class Collaborateur
      * @ORM\Column(type="integer")
      * @Assert\Positive
      * message = "Le numéro du tél ne doit pas être égal à 0 "
+     *@Groups("post:read")
      */
     private $NumeroTel;
 
