@@ -84,6 +84,7 @@ return new Response(json_encode($jsonContent));
         
         // Instantiate Dompdf with our options
         $dompdf = new Dompdf($pdfOptions);
+        
         $user = $userRepository->findAll();
            
         // Retrieve the HTML generated in our twig file
@@ -409,5 +410,5 @@ return new Response(json_encode($jsonContent));
 
    
 }
-
+    
     
