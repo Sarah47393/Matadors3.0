@@ -22,6 +22,8 @@ class EvenementType extends AbstractType
                ))
             ->add('Billet')
             ->add('DateDeEvenement')
+            ->add('longitude')
+            ->add('latitude')
 
 
 

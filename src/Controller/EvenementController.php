@@ -44,41 +44,62 @@ class EvenementController extends AbstractController
      /**
      * @Route("/listevenement", name="evenement_pdf", methods={"GET"})
      */
-    public function listevenement(EvenementRepository $evenementRepository): Response
-    {
-        // Configure Dompdf according to your needs
+   
+  
+        public function listpdf(EvenementRepository $EvenementRepository): Response
+            {
         $pdfOptions = new Options();
-        $pdfOptions->set('defaultFont', 'Arial');
-
-        // Instantiate Dompdf with our options
-        $dompdf = new Dompdf($pdfOptions);
-        // Retrieve the HTML generated in our twig file
-        $html = $this->render('evenement/listevenement.html.twig', [
-            'evenements' => $evenementRepository->findAll(),
+            $pdfOptions->set('defaultFont', 'Arial');
             
-        ]);
+            // Instantiate Dompdf with our options
+            $dompdf = new Dompdf($pdfOptions);
+            $evenement = $EvenementRepository->findAll();
+               
+            // Retrieve the HTML generated in our twig file
+            $html = $this->renderView('evenement/listevenement.html.twig', [
+                'evenements' => $evenement,
+            ]);
+            
+            // Load HTML to Dompdf
+            $dompdf->loadHtml($html);
+            
+            // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+            $dompdf->setPaper('A4', 'portrait');
+    
+            // Render the HTML as PDF
+            $dompdf->render();
+    
+            // Output the generated PDF to Browser (force download)
+            $dompdf->stream("mypdf.pdf", [
+                "Attachment" => false
+            ]);
+       
+        }
 
-        // Load HTML to Dompdf
-        $dompdf->loadHtml($html);
-        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
-        $dompdf->setPaper('A4', 'portrait');
+         /**
+     * @Route("/TrierParNomDESCr", name="TrierParNomDESCr")
+     */
+    public function TrierParNomr(Request $request): Response
+    {
+        $repository = $this->getDoctrine()->getRepository(Evenement::class);
+        $evenements = $repository->findByNamer();
 
-        // Render the HTML as PDF
-        $dompdf->render();
-        // Output the generated PDF to Browser (inline view)
-        $dompdf->stream("mypdf.pdf", [
-            "evenements" => true
+        return $this->render('evenement/index.html.twig', [
+            'evenements' => $evenements,
         ]);
     }
+    /**
+     * @Route("/TrierParNomASCr", name="TrierParNomASCr")
+     */
+    public function TrierParNomdesr(Request $request): Response
+    {
+        $repository = $this->getDoctrine()->getRepository(Evenement::class);
+        $evenements = $repository->findByNameascr();
 
-
-
-
-   
-
-
-
-
+        return $this->render('evenement/index.html.twig', [
+            'evenements' => $evenements,
+        ]);
+    }
 
 
 
@@ -110,6 +131,9 @@ class EvenementController extends AbstractController
             $evenement->setQrCode($fileName);
             $entityManager->persist($evenement);
             $entityManager->flush();
+           
+
+  
 
             return $this->redirectToRoute('evenement_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -178,16 +202,8 @@ class EvenementController extends AbstractController
         return $this->redirectToRoute('evenement_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    /**
-     * @Route("/evenement/recherche",name="recherche")
-     *
-     */
-    function recherche(EvenementRepository $repository,Request $request){
-        $data=$request->get('recherche');
-        $evenement=$repository->findBy(['NomEvenement'=>$data]);
-        return $this->render('evenement/show.html.twig',['evenements'=>$evenement]);
-    }
-
+   
+   
 
 
 

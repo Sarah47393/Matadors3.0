@@ -1,38 +1,79 @@
-{% extends 'back.office.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block title %}Evenement{% endblock %}
+{% block title %}Evenement {% endblock %}
 
 {% block body %}
+<style type="text/css">
+        {
+            font-family: Candara, Arial, sans-serif;
+        }
+         h1{
+            font-family: Candara, Arial, sans-serif;
+            color:blue;
+            position: initial;
+       
+        tfoot tr td{
+            font-weight: bold;
+            font-size: x-small;
+        }
+        .gray {
+            background-color: lightgreen;
+        }
+    </style>
+    <style>
+        table, td, th {
+            border: 1px solid;
+            background-color: #d1b771; 
+        }
 
-<h1>Evenement</h1>
-
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 17px;
+        }
+    </style>
+<section id="user" class="user">
+    <br>
+    <br>
+    <br>
+    <div class="content-wrapper">
+    <h1>Evenement </h1>>
+   
     <table class="table">
-        <tbody>
+        <thead>
             <tr>
                 <th>Id</th>
-                <td>{{ evenement.id }}</td>
-            </tr>
-            <tr>
                 <th>NomEvenement</th>
-                <td>{{ evenement.NomEvenement }}</td>
-            </tr>
-            <tr>
                 <th>Description</th>
-                <td>{{ evenement.Description }}</td>
-            </tr>
-            <tr>
                 <th>NombreDeParticipants</th>
-                <td>{{ evenement.NombreDeParticipants }}</td>
-            </tr>
-            
-            <tr>
+                <th>QrCode</th>
                 <th>Billet</th>
-                <td>{{ evenement.Billet }}</td>
-            </tr>
-            <tr>
                 <th>DateDeEvenement</th>
-                <td>{{ evenement.DateDeEvenement ? evenement.DateDeEvenement|date('Y-m-d') : '' }}</td>
+                <td>longitude</td>
+                <td>latitude</td>
+                
             </tr>
+        </thead>
+        <tbody>
+        {% for evenement in evenements %}
+            <tr>
+                <td>{{ evenement.id }}</td>
+                <td>{{ evenement.NomEvenement }}</td>
+                <td>{{ evenement.Description }}</td>
+                <td>{{ evenement.NombreDeParticipants }}</td>
+                <td><img src="{{ 'Uploads/image/' ~evenement.QrCode }}"></td>
+                <td>{{ evenement.Billet }}</td>
+                <td>{{ evenement.DateDeEvenement ? evenement.DateDeEvenement|date('Y-m-d') : '' }}</td>
+                <td>{{ evenement.longitude }}</td>
+                <td>{{ evenement.latitude }}</td>
+            
+            </tr>
+       
+            
+        {% endfor %}
         </tbody>
     </table>
-    {% endblock %}
+
+</div>
+</section><!-- End Contact Section -->
+{% endblock %}

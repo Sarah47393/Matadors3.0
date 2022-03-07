@@ -22,7 +22,7 @@ class Evenement
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(
      * min = 5,
-     * max = 7,
+     * max = 200,
      * minMessage = "Le nom d'un evenement doit comporter au minimum {{ limit }} caractères",
      * maxMessage = "Le nom d'un evenement doit comporter au maximum {{ limit }} caractères"
      * )
@@ -65,6 +65,16 @@ class Evenement
      * @ORM\JoinColumn(nullable=false)
      */
     private $collaborateur1;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $longitude;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $latitude;
 
     public function getId(): ?int
     {
@@ -151,6 +161,30 @@ class Evenement
     public function setCollaborateur1(?Collaborateur $collaborateur1): self
     {
         $this->collaborateur1 = $collaborateur1;
+
+        return $this;
+    }
+
+    public function getLongitude(): ?float
+    {
+        return $this->longitude;
+    }
+
+    public function setLongitude(float $longitude): self
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    public function getLatitude(): ?float
+    {
+        return $this->latitude;
+    }
+
+    public function setLatitude(float $latitude): self
+    {
+        $this->latitude = $latitude;
 
         return $this;
     }

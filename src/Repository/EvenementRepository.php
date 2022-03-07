@@ -47,4 +47,27 @@ class EvenementRepository extends ServiceEntityRepository
         ;
     }
     */
+    
+    public function findByNamer()
+    {
+        return $this->createQueryBuilder('evenement')
+            ->orderBy('evenement.NomEvenement','DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+    public function findByNameascr()
+    {
+        return $this->createQueryBuilder('evenement')
+            ->orderBy(' evenement.NomEvenement','ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+
+
+
+
+
 }

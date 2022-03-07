@@ -67,6 +67,16 @@ class Collaborateur
      */
     private $evenements;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Entreprise;
+
+   // /**
+    // * @ORM\Column(type="string", length=255)
+    // */
+    //private $email;
+
     public function __construct()
     {
         $this->evenements = new ArrayCollection();
@@ -124,6 +134,7 @@ class Collaborateur
 
         return $this;
     }
+    
 
     /**
      * @return Collection<int, Evenement>
@@ -151,6 +162,30 @@ class Collaborateur
                 $evenement->setCollaborateur1(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getEntreprise(): ?string
+    {
+        return $this->Entreprise;
+    }
+
+    public function setEntreprise(string $Entreprise): self
+    {
+        $this->Entreprise = $Entreprise;
 
         return $this;
     }

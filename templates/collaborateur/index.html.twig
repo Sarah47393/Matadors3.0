@@ -13,6 +13,7 @@
                 <th>PrenomCollaborateur</th>
                 <th>Role</th>
                 <th>NumeroTel</th>
+                <th>Entreprise</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -24,6 +25,7 @@
                 <td>{{ collaborateur.PrenomCollaborateur }}</td>
                 <td>{{ collaborateur.Role }}</td>
                 <td>{{ collaborateur.NumeroTel }}</td>
+                <td>{{ collaborateur.Entreprise }}</td>
                 <td>
                     <a href="{{ path('collaborateur_show', {'id': collaborateur.id}) }}">Afficher les détails</a>
                     <a href="{{ path('collaborateur_edit', {'id': collaborateur.id}) }}">Modifier</a>

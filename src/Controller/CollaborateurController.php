@@ -94,6 +94,15 @@ die;}
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($collaborateur);
             $entityManager->flush();
+           // $MessageBird = new \MessageBird\Client('GdcySSN6kqMVA65wA2yVA9GyP');
+            //$Message = new \MessageBird\Objects\Message();
+            //$Message->originator = '+21646354484';
+           // $Message->recipients = array(+21646354484);
+            //$Message->body = 'un collaborateur a été ajouté';
+            //$response = $MessageBird->messages->create($Message);
+
+
+                //print_r($response);
 
             return $this->redirectToRoute('collaborateur_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -123,6 +132,16 @@ die;}
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $message = (new \Swift_Message( 'You Got Mail!'))
+                             ->setFrom('tennisclubtunis1@gmail.com')
+
+                             ->setTo($event->getEmail())
+                             ->setBody(
+
+                                   'Votre evenement a eté ajouté'
+                               )
+                    ;
+            $mailer->send($message);
             $entityManager->flush();
 
             return $this->redirectToRoute('collaborateur_index', [], Response::HTTP_SEE_OTHER);
