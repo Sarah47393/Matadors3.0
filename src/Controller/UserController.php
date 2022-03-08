@@ -231,21 +231,9 @@ return new Response(json_encode($jsonContent));
         //$serializer = new Serializer([new ObjectNormalizer()]);
       
         $repository = $this->getDoctrine()->getRepository(User::class);
-       // $students = $repository->findByid($searchString);
-       
-        //$students = $repository->findBy(array('id' => '%'.'2'));
-
-         //$users = $repository->findByExampleField($searchString);
-         
-        //$data=$serializer->normalize($users);
-       // return new JsonResponse($data);
-
         $users = $repository->findByExampleField($searchString);
-    
         $data = $serializer->normalize($users,'json',['groups'=>'post:read']);
         return new JsonResponse($data);
-       // $data=$serializer->normalize("");
-       // return new Response(json_encode($data));
     }
      /**
      * @Route("/search/{searchString}", name="searchEnt")
@@ -254,7 +242,7 @@ return new Response(json_encode($jsonContent));
     {
         $serializer = new Serializer([new ObjectNormalizer()]);
         $repository = $this->getDoctrine()->getRepository(student::class);
-        $students = $repository->findBynsc($searchString);
+        $students = $repository->findByid($searchString);
         if (!$students) {
             $students = $repository->findByid($searchString);
         $data=$serializer->normalize($students);
@@ -272,7 +260,7 @@ return new Response(json_encode($jsonContent));
     {
         $serializer = new Serializer([new ObjectNormalizer()]);
         $repository = $this->getDoctrine()->getRepository(student::class);
-        $students = $repository->findByemail($searchString);
+        $students = $repository->findByid($searchString);
         $data=$serializer->normalize($students);
         return new JsonResponse($data);
     }
