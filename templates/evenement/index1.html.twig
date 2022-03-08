@@ -36,7 +36,9 @@
                 <td>{{ evenement.DateDeEvenement ? evenement.DateDeEvenement|date('Y-m-d') : '' }}</td>
                 <td>{{ evenement.longitude }}</td>
                 <td>{{ evenement.latitude }}</td>
-               <a href="{{ path('evenement_show', {'id': evenement.id}) }}">Afficher les détails</a>
+               <td>
+                    <a href="{{ path('evenement_show', {'id': evenement.id}) }}">Afficher les détails</a>
+                    </td>
             </tr>
         {% else %}
             <tr>
