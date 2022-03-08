@@ -41,6 +41,28 @@ class UserRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+    public function findByEx($value)
+    {
+        return $this->createQueryBuilder('u')
+     
+            
+
+            ->orderBy($value , 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    public function findByEx2($value)
+    {
+        return $this->createQueryBuilder('u')
+     
+            
+
+            ->orderBy($value , 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     
 
     /*

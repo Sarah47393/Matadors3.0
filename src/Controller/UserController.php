@@ -235,6 +235,38 @@ return new Response(json_encode($jsonContent));
         $data = $serializer->normalize($users,'json',['groups'=>'post:read']);
         return new JsonResponse($data);
     }
+        /**
+     * @Route("/order1/{searchString}", name="order")
+     */
+    public function orderEnt($searchString,SerializerInterface $serializer)
+    {
+        
+        //$serializer = new Serializer([new ObjectNormalizer()]);
+      
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $users = $repository->findByEx($searchString);
+        $data = $serializer->normalize($users,'json',['groups'=>'post:read']);
+       // return new JsonResponse($data);
+        return $this->render('user/index.html.twig', [
+            'users' => $users,
+        ]);
+    }
+     /**
+     * @Route("/order2/{searchString}", name="order2")
+     */
+    public function orderEnt2($searchString,SerializerInterface $serializer)
+    {
+        
+        //$serializer = new Serializer([new ObjectNormalizer()]);
+      
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $users = $repository->findByEx2($searchString);
+        $data = $serializer->normalize($users,'json',['groups'=>'post:read']);
+       // return new JsonResponse($data);
+        return $this->render('user/index.html.twig', [
+            'users' => $users,
+        ]);
+    }
      /**
      * @Route("/search/{searchString}", name="searchEnt")
      */

@@ -48,6 +48,15 @@
         {% endfor %}
         </tbody>
     </table>
+    <div class="dropbtn" >
+        <select id="mySelect" onchange="myFunction()" style="background-color: slategray;">
+        <option value='u.id' ></option>
+          <option value='id1' >id asc</option>
+          <option value='id2'>id dsc</option>
+          <option value='nom1' >nom asc</option>
+          <option value='nom2'>nom dsc</option>
+        </select>
+        </div>
    
     <div class>
         <section id="hero" class="d-flex align-items-center">
@@ -80,6 +89,29 @@
         }
     </script>
     </section><!-- End Hero -->
+
+</div>
+<div class>
+    <section id="hero" class="d-flex align-items-center">
+<script >
+
+    function myFunction() {
+        let searchString = document.getElementById('mySelect').value; // recuperation de l'input de la recherche
+      if(searchString=='id2'){
+        window.location = ('http://127.0.0.1:8000/user/order1/'+'u.id');
+      }
+      if(searchString=='id1'){
+        window.location = ('http://127.0.0.1:8000/user/order2/'+'u.id');
+      }
+      if(searchString=='nom2'){
+        window.location = ('http://127.0.0.1:8000/user/order1/'+'u.Nom');
+      }
+      if(searchString=='nom1'){
+        window.location = ('http://127.0.0.1:8000/user/order2/'+'u.Nom');
+      }
+    }
+</script>
+</section><!-- End Hero -->
 
 </div>
     <a href="{{ path('user_new') }}">Create new</a>
