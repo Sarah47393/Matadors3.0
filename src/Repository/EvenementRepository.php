@@ -47,6 +47,23 @@ class EvenementRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findByExampleField($value)
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.id LIKE :val')
+            ->orWhere('e.NomEvenement LIKE :val')
+            ->orWhere('e.Description LIKE :val')
+            ->orWhere('e.NombreDeParticipants LIKE :val')
+            ->orWhere('e.QrCode LIKE :val')
+            ->orWhere('e.Billet LIKE :val')
+            ->orWhere('e.DateDeEvenement LIKE :val')            
+            ->setParameter('val','%'.$value.'%')
+            ->orderBy('e.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     
     public function findByNamer()
     {

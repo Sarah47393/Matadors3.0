@@ -4,10 +4,7 @@
 
 {% block body %}
     <h1>Nos Collaborateurs</h1>
-<div class="pcoded-search-box" style="position: relative; ">
-        <input onkeyup="searchEnt()" type="text" id="searchEnt" class="form-control" placeholder="Search">
-        <button onclick="myFunction()">Click me</button>
-    </div>
+
     <table class="table">
         <thead>
             <tr>
@@ -38,11 +35,8 @@
         {% endfor %}
         </tbody>
     </table>
-<script >
+</div> 
+   
 
-function searchEnt() {
-    let searchString = document.getElementById('searchEnt').value; // recuperation de l'input de la recherche
-    
-</script>
     
 {% endblock %}

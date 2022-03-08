@@ -3,11 +3,8 @@
 {% block title %}Evenement index{% endblock %}
 
 {% block body %}
-
-    
-    
+ 
     <h1>Evenement</h1>
-
     <table class="table">
         <thead>
             <tr>
@@ -37,8 +34,9 @@
                 <td>{{ evenement.longitude }}</td>
                 <td>{{ evenement.latitude }}</td>
                <td>
-                    <a href="{{ path('evenement_show', {'id': evenement.id}) }}">Afficher les détails</a>
-                    </td>
+               
+                    <a href="{{ path('details', {'id': evenement.id}) }}">Voir le lieu sur Google Maps</a>
+                 </td>
             </tr>
         {% else %}
             <tr>

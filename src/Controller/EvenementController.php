@@ -156,6 +156,19 @@ class EvenementController extends AbstractController
             'evenement' => $evenement,
         ]);
     }
+    
+
+    /**
+     * @Route("/{id}", name="details", methods={"GET"})
+     */
+    public function show2(Evenement $evenement): Response
+    {
+        return $this->render('evenement/showfrontt.html.twig', [
+            'evenement' => $evenement,
+        ]);
+    }
+
+
 
     /**
      * @Route("/{id}/edit", name="evenement_edit", methods={"GET", "POST"})
@@ -200,6 +213,19 @@ class EvenementController extends AbstractController
         }
 
         return $this->redirectToRoute('evenement_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+
+
+    /**
+     * @Route("/order1/{searchString}", name="order")
+     */
+    public function index3(EvenementRepository $evenementRepository, $searchString): Response
+    {
+        return $this->render('evenement/index.html.twig', [
+            'evenements' => $evenementRepository->findByExampleField($searchString),
+           
+        ]);
     }
 
    

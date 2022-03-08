@@ -5,6 +5,27 @@
 {% block body %}
 <a class="btn btn-success" href="{{path('TrierParNomDESCr') }}">Trier par Nom en ordre décroissant</a>
 <a class="btn btn-success"href="{{path('TrierParNomASCr') }}">Trier par Nom en ordre croissant</a>
+<div class="pcoded-search-box" style="position: relative; ">
+  
+        <input  type="text" id="searchEnt" class="form-control" placeholder="Search">
+    
+
+
+    </div>
+         <button onclick="myFunction()">Click me</button>
+    <p id="demo"></p>
+
+<script>
+function myFunction() {
+    let searchString = document.getElementById('searchEnt').value; // recuperation de l'input de la recherche
+        window.location = ('http://127.0.0.1:8000/evenement/order1/'+searchString
+
+);
+}
+</script>
+
+        
+    </div>
 <section id="user" class="user">
     <br>
     <br>
