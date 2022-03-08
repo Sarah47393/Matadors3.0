@@ -73,6 +73,15 @@ die;}
         ]);
     }
     /**
+     * @Route("/recherche", name="Recherche", methods={"GET"})
+     */
+    public function Recherche(CollaborateurRepository $collaborateurRepository): Response
+    {
+        return $this->render('collaborateur/index.html.twig', [
+            'collaborateurs' => $collaborateurRepository->findByExampleField($value),
+        ]);
+    }
+    /**
      * @Route("/co", name="collaborateur_index1", methods={"GET"})
      */
     public function index1(CollaborateurRepository $collaborateurRepository): Response
