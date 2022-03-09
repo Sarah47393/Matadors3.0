@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\File;
 use Dompdf\Dompdf;
 use Dompdf\Options;
-
+use Swift_Mailer;
 /**
  * @Route("/evenement")
  */
@@ -159,11 +159,11 @@ class EvenementController extends AbstractController
     
 
     /**
-     * @Route("/{id}", name="details", methods={"GET"})
+     * @Route("/{id}", name="maps", methods={"GET"})
      */
-    public function show2(Evenement $evenement): Response
+    public function maps(Evenement $evenement): Response
     {
-        return $this->render('evenement/showfrontt.html.twig', [
+        return $this->render('evenement/maps.html.twig', [
             'evenement' => $evenement,
         ]);
     }
@@ -228,7 +228,34 @@ class EvenementController extends AbstractController
         ]);
     }
 
-   
+    public function mail( \Swift_Mailer $mailer)
+    {
+        $message = (new \Swift_Message('Vous Avez Ajouter un évenement!!'))
+            ->setFrom('sarra.gara@esprit.tn')
+            ->setTo('garasarra68@gmail.tn')
+            ->setBody(
+                $this->renderView(
+                    // templates/emails/registration.html.twig
+                    'emails/registration.html.twig',
+                  
+                ),
+                'text/html'
+                
+            );
+            $mailer->send($message);
+            // you can remove the following code if you don't define a text version for your emails
+            //->addPart(
+                //$this->renderView(
+                    // templates/emails/registration.txt.twig
+                   // 'emails/registration.txt.twig',
+                    
+                //),
+               // 'text/plain'
+                
+        //;
+    
+        $mailer->send($message);
+            }
    
 
 
