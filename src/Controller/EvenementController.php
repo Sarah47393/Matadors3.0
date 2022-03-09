@@ -159,7 +159,7 @@ class EvenementController extends AbstractController
     
 
     /**
-     * @Route("/{id}", name="maps", methods={"GET"})
+     * @Route("/maps/{id}", name="maps", methods={"GET"})
      */
     public function maps(Evenement $evenement): Response
     {

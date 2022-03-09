@@ -7,11 +7,7 @@
 
     <table class="table">
         <tbody>
-            
-            <tr>
-                <th>QrCode</th>
-                <td><img src="{{ asset('Uploads/image/' ~evenement.QrCode) }}"></td>
-            </tr>
+          
            
             <tr>
                 <th>longitude</th>
@@ -25,9 +21,10 @@
     </table>
 
     <a href="{{ path('evenement_index') }}">Retourner vers la liste des évènements</a>
-    <li style="width:450px;height : 450px;"><iframe src='https://www.google.com/maps?q=
+    <div style ="text-align: center;">
+    <li style="width:450px;height : 450px; position:align:center;"><iframe src='https://www.google.com/maps?q=
  {{evenement.longitude}} , {{evenement.latitude}} &hl=es;z=14&output=embed' style="width: 100%; height:100%;" ></iframe></li>
-
+</div>
    
     
 {% endblock %}
