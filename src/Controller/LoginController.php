@@ -10,11 +10,19 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
+
 
 
 class LoginController extends AbstractController
 {
+   /* public function __construct(RequestStack $requestStack)
+    {
+        $this->requestStack = $requestStack;
+    }
+    private $requestStack;*/
     /**
      * @Route("/login", name="login")
      */
@@ -34,7 +42,8 @@ class LoginController extends AbstractController
         $form = $this->createForm(LoginType::class);
         $form ->remove("Prenom");
         $form->handleRequest($request);
-
+       // $session = new Session();
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $user1 = $form->getData();
            // $entityManager = $this->getDoctrine()->getManager();
@@ -55,6 +64,13 @@ class LoginController extends AbstractController
             }else
             {{
                 if($user->getRole()=='Admin'){
+                 /*   $session->start();
+        
+        // set and get session attributes
+        $session->set('name', 'Drak');
+      *///$session = $this->requestStack->getSession();
+     
+     // $session->set('user', $user);
                     return
                     $this->redirect('http://127.0.0.1:8000/user/');}
                 if($user->getRole()=='Membre'){

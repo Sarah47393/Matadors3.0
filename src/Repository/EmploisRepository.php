@@ -27,6 +27,11 @@ class EmploisRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('e')
             ->andWhere('e.id LIKE :val')
+            ->andWhere('e.Dfin LIKE :val')
+            ->andWhere('e.Ddebut LIKE :val')
+            ->andWhere('e.Prenom LIKE :val')
+            ->andWhere('e.Nom LIKE :val')
+            ->andWhere('e.CIN LIKE :val')
             ->setParameter('val', '%'.$value.'%')
             ->orderBy('e.id', 'ASC')
             ->setMaxResults(20)
