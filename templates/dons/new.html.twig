@@ -1,0 +1,6 @@
+{% extends 'base.html.twig' %} {% block title %}Faire un Don{% endblock %}
+ {% block body %}
+<h1>Envoyer votre don</h1>
+ {{ include( 'dons/_form.html.twig') }} 
+ <a href="{{ path('dons_new') }}"></a>
+    {% endblock %}
