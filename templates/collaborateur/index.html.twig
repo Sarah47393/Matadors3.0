@@ -4,27 +4,7 @@
 
 {% block body %}
     <h1>Collaborateur</h1>
-    <div class="pcoded-search-box" style="position: relative; ">
-  
-        <input  type="text" id="searchEnt" class="form-control" placeholder="Search">
     
-
-
-    </div>
-         <button onclick="myFunction()">Click me</button>
-    <p id="demo"></p>
-
-<script>
-function myFunction() {
-    let searchString = document.getElementById('searchEnt').value; // recuperation de l'input de la recherche
-        window.location = ('http://127.0.0.1:8000/evenement/order1/'+searchString
-
-);
-}
-</script>
-
-        
-    </div>
 
     <table class="table">
         <thead>
@@ -60,5 +40,5 @@ function myFunction() {
         </tbody>
     </table>
 <a class=" btn btn-success " href="{{ path('collaborateur_new') }}">Ajouter un nouveau collaborateur</a>
-<a class="btn btn-success  " href="{{ path('statistiques') }}">Les Staistiques</a>
+<a class="btn btn-success  " href="{{ path('stats') }}">Les Staistiques</a>
 {% endblock %}
