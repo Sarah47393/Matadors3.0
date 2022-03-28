@@ -24,6 +24,7 @@ class Emplois
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="emplois")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("post:read")
      */
     private $User;
 

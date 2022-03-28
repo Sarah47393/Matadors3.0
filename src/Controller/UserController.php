@@ -53,7 +53,24 @@ $jsonContent=$Normalizer->normalize($users,'json',['groups'=>'post:read']);
 return new Response(json_encode($jsonContent));
 dump($jsonContent);
 die;}
+/**
+     * @Route("/deletey", name="deletey")
+     */
+    public function deletey(Request $request, SerializerInterface  $serializer )
+    {
+        $id = $request->get("id");
 
+        $users  = $this->getDoctrine()->getRepository(User::class)->find($id);
+        $em = $this->getDoctrine()->getManager();
+        if($users != null)
+        {
+            $em->remove($users);
+            $em->flush();
+            $serializer = new Serializer([new ObjectNormalizer()]);
+            $formatted = $serializer->normalize("User Deleted ");
+            return new JsonResponse($formatted);
+        }
+    }
  /**
      * @Route("/Usermobile/{id}", name="Usermobile/{id}")
      */
@@ -103,7 +120,7 @@ return new Response(json_encode($jsonContent));
 
         // Output the generated PDF to Browser (force download)
         $dompdf->stream("mypdf.pdf", [
-            "Attachment" => false
+            "Attachment" => true
         ]);
    
     }
@@ -197,6 +214,10 @@ return new Response(json_encode($jsonContent));
     $image = $request->query->get("image");
     $CIN = $request->query->get("CIN");
     $Password = $request->query->get("Password");*/
+    //$file = $request->get("image");
+    //$file = $user->getimage();
+    //$fileName = md5(uniqid()).'.'.$file->guessExtension();
+   
     $user->setNom($request->get('Nom'));
     $user->setPrenom($request->get('Prenom'));
    $user->setPassword($request->get("Password"));
