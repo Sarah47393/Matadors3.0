@@ -138,6 +138,8 @@ public class ListEmploisForm extends Form {
  //Delete1.addActionListener(p -> new DetailsUser(current, ev).show());
  // Delete1.addActionListener(e-> new ServiceEmplois.deleteEmplois(ev.getId()));
                                         Button lModifier = new Button("Modifier");
+                                        lModifier.addActionListener(( e)-> new EditEmplois(this,ev).show()  );
+       
 
 
  c3.add(btnDetails);

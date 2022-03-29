@@ -153,6 +153,25 @@ die;}
     return new Response(json_encode($jsonContent));
           
     }
+
+    /**
+     * @Route("/updateEmploisj", name="updateEmploisj")
+     */
+    public function updateEmploisj(Request $request, SerializerInterface  $serializer , EntityManagerInterface $em, NormalizerInterface $Normalizer)
+    {
+        $em= $this->getDoctrine()->getManager();
+        $repo = $this->getDoctrine()->getRepository(Emplois::class);
+        $emplois = $repo->find($request->get("id"));
+       // $tournoi = $this->getDoctrine()->getManager()->getRepository(tournoi::class)->find($request->get("id"));
+       $emplois->setDdebut(date_create_from_format("Y-m-d H:i:s",$request->get("Ddebut")));
+       $emplois->setDfin(date_create_from_format("Y-m-d H:i:s",$request->get("Dfin")));
+        $em->persist($emplois);
+        $em->flush();
+
+        $jsonContent=$Normalizer->normalize($emplois,'json',['groups'=>'post:read']);
+        return new JsonResponse("emplois Updated");
+    }
+
     /**
      * @Route("/{id}", name="emplois_show", methods={"GET"})
      */
