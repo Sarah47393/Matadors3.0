@@ -233,6 +233,29 @@ return new Response(json_encode($jsonContent));
     return new Response(json_encode($jsonContent));
           
     }
+     /**
+     * @Route("/updateUserj", name="updateUserj")
+     */
+    public function updateUserj(Request $request, SerializerInterface  $serializer , EntityManagerInterface $em, NormalizerInterface $Normalizer)
+    {
+        $em= $this->getDoctrine()->getManager();
+        $repo = $this->getDoctrine()->getRepository(User::class);
+        $user = $repo->find($request->get("id"));
+       // $tournoi = $this->getDoctrine()->getManager()->getRepository(tournoi::class)->find($request->get("id"));
+       $user->setNom($request->get('Nom'));
+       $user->setPrenom($request->get('Prenom'));
+      $user->setPassword($request->get("Password"));
+       $user->setCIN($request->get("CIN"));
+       $user->setRole($request->get("Role"));
+       $user->setAccess($request->get("Access"));
+       $user->setimage($request->get("image"));
+      $user->setDatenaissance(date_create_from_format("Y-m-d",$request->get("datenaissance")));
+        $em->persist($user);
+        $em->flush();
+
+        $jsonContent=$Normalizer->normalize($user,'json',['groups'=>'post:read']);
+        return new JsonResponse("user Updated");
+    }
     /**
      * @Route("/{id}", name="user_show", methods={"GET"})
      */

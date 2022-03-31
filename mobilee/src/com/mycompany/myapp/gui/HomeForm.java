@@ -26,12 +26,15 @@ Form current;
         Button btnListUsers = new Button("List Users");
          Button btnAddEmplois = new Button("Add Emplois");
         Button btnListEmplois = new Button("List Emplois");
-        
+                Button btnrech = new Button("rech emplois");
+         Button btnrechu = new Button("rech user");
         btnAddUser.addActionListener(e-> new AddUserForm(current).show());
         btnListUsers.addActionListener(e-> new ListUserForm(current).show());
         btnAddEmplois.addActionListener(e-> new AddEmploisForm(current).show());
         btnListEmplois.addActionListener(e-> new ListEmploisForm(current).show());
-        addAll(btnAddUser,btnListUsers,btnAddEmplois,btnListEmplois);
+         btnrech.addActionListener(e-> new RechercheEmplois(current).show());
+         btnrechu.addActionListener(e-> new RechercheUser(current).show());
+        addAll(btnrech,btnrechu,btnAddUser,btnListUsers,btnAddEmplois,btnListEmplois);
         
         
     }

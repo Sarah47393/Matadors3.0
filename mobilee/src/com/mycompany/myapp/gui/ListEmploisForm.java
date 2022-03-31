@@ -86,7 +86,7 @@ public class ListEmploisForm extends Form {
             ImageViewer imgV = new ImageViewer();
             imgV.setImage(urlim);*/
           
-             
+             SpanLabel sp0 = new SpanLabel("id: " + "  " + ev.getId());
               SpanLabel spl = new SpanLabel("nom: " + "  " + ev.getNom());
                 SpanLabel spl2 = new SpanLabel("prenom: " + "  " + ev.getPrenom());
                 SpanLabel sp7 = new SpanLabel("cin: " + "  " + ev.getCin());
@@ -96,7 +96,7 @@ public class ListEmploisForm extends Form {
                 //SpanLabel sp5 = new SpanLabel("image: " + "  " + ev.getImage());
                 //SpanLabel sp2 = new SpanLabel("password: " + "  " + ev.getPassword());
       
-          addAll(spl,spl2,sp7,sp8,sp6);
+          addAll(sp0,spl,spl2,sp7,sp8,sp6);
                 getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e-> previous.showBack());
                         Button btnDetails = new Button("Détails");
                              //   btnDetails.addActionListener(p -> new DetailsUser(current, ev).show());
@@ -138,7 +138,9 @@ public class ListEmploisForm extends Form {
  //Delete1.addActionListener(p -> new DetailsUser(current, ev).show());
  // Delete1.addActionListener(e-> new ServiceEmplois.deleteEmplois(ev.getId()));
                                         Button lModifier = new Button("Modifier");
-                                        lModifier.addActionListener(( e)-> new EditEmplois(this,ev).show()  );
+                                         int exv=ev.getId();
+                                         
+                                        lModifier.addActionListener(( e)-> new EditEmplois(this,ev,exv).show() );
        
 
 

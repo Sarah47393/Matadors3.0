@@ -138,14 +138,14 @@ b.addActionListener(e -> {
         //mb.setTextLine2(actors[iter]);
        // mb.setIcon(pictures[iter]);
         d.add(mb);
-        mb.addActionListener(ee -> {
+       /* mb.addActionListener(ee -> {
             b.setTextLine1(mb.getTextLine1());
             if(mb.getTextLine1()=="Prix Croissant")
             {
                 System.out.println("cccccc");
                 list.removeAll();
                 
-                 listp=ServiceUser.getInstance().parseUsertri("c");
+               //  listp=ServiceUser.getInstance().parseUsertri("c");
                  
                  for(User c : listp) {
                   list.add(createContactContainer(c));
@@ -160,7 +160,7 @@ b.addActionListener(e -> {
                 System.out.println("ddddd");
                list.removeAll();
                 
-                 listp=ServiceUser.getInstance().parseUsertri("d");
+               //  listp=ServiceUser.getInstance().parseUsertri("d");
                  
                  for(User c : listp) {
                   list.add(createContactContainer(c));
@@ -172,7 +172,7 @@ b.addActionListener(e -> {
            // b.setIcon(mb.getIcon());
             d.dispose();
             b.revalidate();
-        });
+        });*/
     }
     d.showPopupDialog(b);
 });
@@ -249,10 +249,10 @@ private Container createContactContainer(User person) {
     cnt.add(pic2);
     name.setText(person.getNom());
     email.setText(prix+"DT");
-     cnt.addAll(spl,spl2,sp7,sp8,sp6,sp4,sp5,sp2,imgV);
+     cnt.addAll(spl,spl2,sp7,sp8,sp6,sp4,sp5,sp2/*,imgV*/);
   //  pic.setIcon(person.getImg());
     return BorderLayout.center(cnt).
-        add(BorderLayout.WEST, pic);
+        add(BorderLayout.WEST ,pic/*,pic*/);
 }
     
     

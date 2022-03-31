@@ -26,12 +26,12 @@ import java.util.ArrayList;
  */
 public class EditEmplois extends Form {
  
-     public  EditEmplois(Form previous, Emplois ev) {
+     public  EditEmplois(Form previous, Emplois ev,int ez) {
      
     
-     setTitle("Add a new tournoi");
+     setTitle("edit emplois");
         setLayout(BoxLayout.y());
-      
+   
             TextField tfDdebut = new TextField(ev.getDdebut());
         TextField tfDfin= new TextField(ev.getDfin());
   
@@ -48,7 +48,7 @@ public class EditEmplois extends Form {
                 {
                  
                         //SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd");
-                        Emplois t = new Emplois( ev.getId(),tfDdebut.getText().toString(),tfDfin.getText());
+                        Emplois t = new Emplois(ez,ez,tfDdebut.getText(),tfDfin.getText());
                     if( ServiceEmplois.getInstance().updateEmplois(t))
                     {
                            Dialog.show("Success","Connection accepted",new Command("OK"));

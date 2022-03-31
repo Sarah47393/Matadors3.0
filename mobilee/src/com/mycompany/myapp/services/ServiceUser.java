@@ -167,6 +167,66 @@ public class ServiceUser {
         NetworkManager.getInstance().addToQueueAndWait(req);
       return resultOK;
     }
+   
+         public ArrayList<User> RechercheU(String t){
+    
+        //String url = Statics.BASE_URL+"/Students/";
+       String url = Statics.BASE_URL +"user/search1/"+t;
+        //Tournoi t=new Tournoi();
+        req.setUrl(url);
+   
+       req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                Users = parseUsers(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return Users;
+    }
+       public ArrayList<User> getAllUserstri(String t){
+        //String url = Statics.BASE_URL+"/Users/";
+        String url = Statics.BASE_URL +"user/order1/"+t;
+        req.setUrl(url);
+     
+        
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                Users = parseUsers(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return Users;
+    }
+        public boolean updateUser(User t) {
+        System.out.println(t);
+        System.out.println("******");
+         String url = Statics.BASE_URL + "user/updateUserj?id="+t.getId();
+       req.setUrl(url);
+       //tfNom,tfPrenom,tfPassword,tfDatenaissance,tfRole,tfAccess,tfImage,tfCin
+        
+       req.addArgument("Nom", t.getNom());
+       req.addArgument("Prenom", t.getPrenom()+"");
+        req.addArgument("CIN", t.getCin()+"");
+       req.addArgument("Password", t.getPassword()+"");
+        req.addArgument("Role", t.getRole());
+       req.addArgument("Access", t.getAccess()+"");
+        req.addArgument("image", t.getImage());
+       req.addArgument("datenaissance", t.getDatenaissance()+"");
+      req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200; //Code HTTP 200 OK
+                req.removeResponseListener(this);
+            }
+        });
+    
+        NetworkManager.getInstance().addToQueueAndWait(req);
+      return resultOK;
+    }
 }
 
 

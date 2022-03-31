@@ -96,6 +96,9 @@ public class ListUserForm extends Form {
             });
 
                                         Button lModifier = new Button("Modifier");
+                                         int exv=ev.getId();
+                                         
+                                        lModifier.addActionListener(( e)-> new EditUser(this,ev,exv).show() );
 
 
  c3.add(btnDetails);

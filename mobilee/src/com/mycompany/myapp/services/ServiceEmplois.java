@@ -162,4 +162,41 @@ public class ServiceEmplois {
         NetworkManager.getInstance().addToQueueAndWait(req);
       return resultOK;
     }
+    public boolean updateEmplois(Emplois t) {
+        System.out.println(t);
+        System.out.println("******");
+         String url = Statics.BASE_URL + "emplois/updateEmploisj?id="+t.getId();
+       req.setUrl(url);
+       //tfNom,tfPrenom,tfPassword,tfDatenaissance,tfRole,tfAccess,tfImage,tfCin
+        
+       req.addArgument("Ddebut", t.getDdebut()+"");
+        req.addArgument("Dfin", t.getDfin()+"");
+      req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200; //Code HTTP 200 OK
+                req.removeResponseListener(this);
+            }
+        });
+    
+        NetworkManager.getInstance().addToQueueAndWait(req);
+      return resultOK;
+    }
+     public ArrayList<Emplois> RechercheE(String t){
+    
+        //String url = Statics.BASE_URL+"/Students/";
+        String url = Statics.BASE_URL +"emplois/searchemp/"+t;
+        //Tournoi t=new Tournoi();
+        req.setUrl(url);
+   
+       req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                Emplois = parseEmplois(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return Emplois;
+    }
 }

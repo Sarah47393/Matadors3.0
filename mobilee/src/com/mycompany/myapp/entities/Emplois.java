@@ -34,12 +34,17 @@ public class Emplois {
         this.u = u;
     }
 
-    public Emplois(int cin, String ddebut, String dfin) {
+   public Emplois(int cin, String ddebut, String dfin) {
         this.cin = cin;
         this.ddebut = ddebut;
         this.dfin = dfin;
     }
-
+  public Emplois(int id,int cin, String ddebut, String dfin) {
+        this.id = id;
+        this.ddebut = ddebut;
+        this.dfin = dfin;
+        //return Emplois;
+    }
     public Emplois() {
     }
 

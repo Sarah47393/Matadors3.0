@@ -16,14 +16,17 @@
             <file>jar:file:/C:/Users/HP/Desktop/mobilee/src/com/mycompany/myapp.zip!/myapp/gui/HomeForm.java</file>
             <file>jar:file:/C:/Users/HP/Desktop/mobilee/src/com/mycompany/myapp.zip!/myapp/services/ServiceUser.java</file>
             <file>jar:file:/C:/Users/HP/Desktop/mobilee/src/com/mycompany/myapp.zip!/myapp/utils/Statics.java</file>
+            <file>file:/C:/Users/HP/Desktop/mobilee/src/com/mycompany/myapp/gui/RechercheUser.java</file>
             <file>file:/C:/Users/HP/Desktop/mobilee/src/com/mycompany/myapp/entities/User.java</file>
             <file>file:/C:/Users/HP/Desktop/mobilee/src/com/mycompany/myapp/gui/EditEmplois.java</file>
             <file>file:/C:/Users/HP/Desktop/mobilee/src/com/mycompany/myapp/gui/AddUserForm.java</file>
             <file>jar:file:/C:/Users/HP/Desktop/mobilee/src/com/mycompany/myapp.zip!/myapp/MyApplication.java</file>
             <file>file:/C:/Users/HP/Desktop/mobilee/src/com/mycompany/myapp/gui/AddEmploisForm.java</file>
+            <file>file:/C:/Users/HP/Desktop/mobilee/src/com/mycompany/myapp/gui/EditUser.java</file>
             <file>file:/C:/Users/HP/Desktop/mobilee/src/com/mycompany/myapp/gui/ListEmploisForm.java</file>
             <file>file:/C:/Users/HP/Desktop/mobilee/src/com/mycompany/myapp/gui/ListUserForm.java</file>
             <file>file:/C:/Users/HP/Desktop/mobilee/src/com/mycompany/myapp/services/ServiceUser.java</file>
+            <file>file:/C:/Users/HP/Desktop/mobilee/src/com/mycompany/myapp/gui/RechercheEmplois.java</file>
         </group>
     </open-files>
 </project-private>
