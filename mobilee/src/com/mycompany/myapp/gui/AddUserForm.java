@@ -101,7 +101,7 @@ private String fileNameInServer = "";
                 {
                     try {
                         //int password, int cin, String nom, String prenom, String datenaissance, String role, String access, String image
-                        User t = new User(Integer.parseInt(tfPassword.getText()),Integer.parseInt(tfCin.getText()), tfNom.getText(),tfPrenom.getText(),tfDatenaissance.getText(),tfRole.getText(),tfAccess.getText(),fileNameInServer);
+                        User t = new User(tfNom.getText(),tfPrenom.getText(),Integer.parseInt(tfPassword.getText()),Integer.parseInt(tfCin.getText()) ,tfRole.getText(),tfAccess.getText(),fileNameInServer,tfDatenaissance.getText());
                         if( ServiceUser.getInstance().addUser(t))
                         {
                            Dialog.show("Success","Connection accepted",new Command("OK"));

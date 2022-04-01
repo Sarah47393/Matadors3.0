@@ -64,7 +64,23 @@ class UserRepository extends ServiceEntityRepository
         ;
     }
     
+    /*public function findUserLogin($username,$mdp)
+    {
 
+        $query=$this->getEntityManager()->createQuery("SELECT U FROM App:User U WHERE U.CIN='$username' AND U.Password='$mdp'");
+        return $query->getResult();
+    }*/
+    public function findUserLogin($username,$mdp)
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.CIN  = :val')
+            ->andWhere('u.Password = :val1')
+            ->setParameter('val', $username)
+            ->setParameter('val1', $mdp)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     /*
     public function findOneBySomeField($value): ?User
     {

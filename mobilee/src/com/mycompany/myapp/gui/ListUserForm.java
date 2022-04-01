@@ -58,6 +58,8 @@ public class ListUserForm extends Form {
           addAll(spl,spl2,sp7,sp8,sp6,sp4,sp5,sp2,imgV);
                 getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e-> previous.showBack());
                         Button btnDetails = new Button("Détails");
+                        int exx=ev.getId();
+                         btnDetails.addActionListener(( e)-> new Affichuser(this,ev,exx).show() );
                              //   btnDetails.addActionListener(p -> new DetailsUser(current, ev).show());
 
                                               Button Delete1 = new Button("Delete");

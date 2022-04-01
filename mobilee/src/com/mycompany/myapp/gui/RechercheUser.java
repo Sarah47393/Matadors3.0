@@ -160,7 +160,7 @@ searchField.addDataChangeListener((i1, i2) -> { // <2>
       
           c3.addAll(spl,spl2,sp7,sp8,sp6,sp4,sp5,sp2,imgV);
     
-      
+      getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e-> previous.showBack());
           //c3.addAll(sp0,spl,spl2,sp7,sp8,sp6);
                // getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e-> previous.showBack());
                         Button btnDetails = new Button("Détails");
@@ -251,7 +251,7 @@ searchField.addDataChangeListener((i1, i2) -> { // <2>
       
           c3.addAll(spl,spl2,sp7,sp8,sp6,sp4,sp5,sp2,imgV);
     
-      
+      getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e-> previous.showBack());
           //c3.addAll(sp0,spl,spl2,sp7,sp8,sp6);
                // getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e-> previous.showBack());
                         Button btnDetails = new Button("Détails");
@@ -344,7 +344,7 @@ getToolbar().addCommandToRightBar("", searchIcon, (e) -> {
                 SpanLabel sp2 = new SpanLabel("password: " + "  " + ev.getPassword());
       
           c3.addAll(spl,spl2,sp7,sp8,sp6,sp4,sp5,sp2,imgV);
-    
+    getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e-> previous.showBack());
       
           //c3.addAll(sp0,spl,spl2,sp7,sp8,sp6);
                // getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e-> previous.showBack());

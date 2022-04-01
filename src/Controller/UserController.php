@@ -54,9 +54,45 @@ return new Response(json_encode($jsonContent));
 dump($jsonContent);
 die;}
 /**
+     * @Route("/AUser", name="AUser")
+     */
+    public function AUser(NormalizerInterface $Normalizer ,Request $request, SerializerInterface  $serializer)
+    {
+    //Nous utilisons la Repository pour récupérer les objets que nous avons dans la base de données
+    $id = $request->get("id");
+
+    $users  = $this->getDoctrine()->getRepository(User::class)->find($id);
+    //Nous utilisons la fonction normalize qui transforme en format JSON nos donnée qui sont
+    //en tableau d'objet Students
+    $jsonContent=$Normalizer->normalize($users,'json',['groups'=>'post:read']);
+    
+    
+    
+    return new Response(json_encode($jsonContent));
+    dump($jsonContent);
+    die;}
+/**
      * @Route("/deletey", name="deletey")
      */
     public function deletey(Request $request, SerializerInterface  $serializer )
+    {
+        $id = $request->get("id");
+
+        $users  = $this->getDoctrine()->getRepository(User::class)->find($id);
+        $em = $this->getDoctrine()->getManager();
+        if($users != null)
+        {
+            $em->remove($users);
+            $em->flush();
+            $serializer = new Serializer([new ObjectNormalizer()]);
+            $formatted = $serializer->normalize("User Deleted ");
+            return new JsonResponse($formatted);
+        }
+    }
+    /**
+     * @Route("/deleteyff", name="deleteyff")
+     */
+    public function deleteyff(Request $request, SerializerInterface  $serializer )
     {
         $id = $request->get("id");
 
@@ -255,6 +291,87 @@ return new Response(json_encode($jsonContent));
 
         $jsonContent=$Normalizer->normalize($user,'json',['groups'=>'post:read']);
         return new JsonResponse("user Updated");
+    }
+     /**
+     * @Route("/addUserjf", name="addUserjf" )
+     */
+    public function AddUserjf(Request $request, NormalizerInterface $Normalizer )
+    {
+    //Nous utilisons la Repository pour récupérer les objets que nous avons dans la base de données
+   
+    //Nous utilisons la fonction normalize qui transforme en format JSON nos donnée qui sont
+    //en tableau d'objet Students
+    $em=$this->getDoctrine()->getManager();
+    $user=new User();
+    
+    $user->setNom($request->get('Nom'));
+    $user->setPrenom($request->get('Prenom'));
+   $user->setPassword($request->get("Password"));
+    $user->setCIN($request->get("CIN"));
+    $user->setRole("Membre");
+    $user->setAccess($request->get("Access"));
+    $user->setimage($request->get("image"));
+   $user->setDatenaissance(date_create_from_format("Y-m-d",$request->get("datenaissance")));
+    $em->persist($user);
+    $em->flush();
+    $jsonContent=$Normalizer->normalize($user,'json',['groups'=>'post:read']);
+    
+    return new Response(json_encode($jsonContent));
+          
+    }
+     /**
+     * @Route("/updateUserjfff", name="updateUserjfff")
+     */
+    public function updateUserjfff(Request $request, SerializerInterface  $serializer , EntityManagerInterface $em, NormalizerInterface $Normalizer)
+    {
+        $em= $this->getDoctrine()->getManager();
+        $repo = $this->getDoctrine()->getRepository(User::class);
+        $user = $repo->find($request->get("id"));
+       // $tournoi = $this->getDoctrine()->getManager()->getRepository(tournoi::class)->find($request->get("id"));
+       $user->setNom($request->get('Nom'));
+       $user->setPrenom($request->get('Prenom'));
+      $user->setPassword($request->get("Password"));
+       $user->setCIN($request->get("CIN"));
+       $user->setRole("Membre");
+       $user->setAccess($request->get("Access"));
+       $user->setimage($request->get("image"));
+      $user->setDatenaissance(date_create_from_format("Y-m-d",$request->get("datenaissance")));
+        $em->persist($user);
+        $em->flush();
+
+        $jsonContent=$Normalizer->normalize($user,'json',['groups'=>'post:read']);
+        return new JsonResponse("user Updated");
+    }
+     /**
+     * @Route("/cnJson", name="cnJson")
+     */
+    public function cnJson(Request $request,NormalizerInterface $Normalizer)
+    {
+        $user= new User();
+        $username=$request->get('username');
+        $mdp=$request->get('mdp');
+        /*$em=$this->getDoctrine();
+        $tab=$em->getRepository(User::class)->findUserLogin($username , $mdp);
+        if (count($tab)==0){
+            return new Response(json_encode(null));
+
+        }
+        else
+        {
+            $user_j = $Normalizer->normalize($tab[0],'json',['groups'=>'user']);
+            return new Response(json_encode($user_j));
+
+        }*/
+        $repository = $this->getdoctrine()->getRepository(User::class);
+        $user = $repository->findOneBy(array('CIN' => $username,'Password'=>$mdp));
+
+        if (!$user) {
+            return new Response(json_encode(null));
+        }else
+        {{ $user_j = $Normalizer->normalize($user,'json',['groups'=>'post:read']);
+            return new Response(json_encode($user_j));}}
+
+
     }
     /**
      * @Route("/{id}", name="user_show", methods={"GET"})

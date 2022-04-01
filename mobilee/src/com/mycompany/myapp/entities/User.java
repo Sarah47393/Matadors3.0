@@ -17,40 +17,78 @@ public class User {
 
     public User() {
     }
-
-    public User(int id, int cin) {
-        this.id = id;
-        this.cin = cin;
+ public User(User u_c) {
+      this.id = u_c.id;
+      this.nom = u_c.nom;
+      this.prenom = u_c.prenom;
+       this.password = u_c.password;
+        this.cin = u_c.cin;
+        this.role = u_c.role;
+        this.access = u_c.access;
+        this.image = u_c.image;
+          this.datenaissance = u_c.datenaissance;
     }
-
-    public User(int password, int cin, String nom, String prenom, String datenaissance, String role, String access, String image) {
+ 
+    public User(int password, int cin, String nom, String prenom, String datenaissance, String access, String image) {
         this.password = password;
         this.cin = cin;
         this.nom = nom;
         this.prenom = prenom;
         this.datenaissance = datenaissance;
+        this.access = access;
+        this.image = image;
+    }
+
+    public User(int cin, int password) {
+       
+         this.cin = cin;
+         this.password = password;
+    }
+      public User(int id, String nom, String prenom, int password, int cin, String access, String image, String datenaissance) {
+        this.id = id;
+       
+        this.nom = nom;
+        this.prenom = prenom;
+         this.password = password;
+        this.cin = cin;
+      
+        this.access = access;
+        this.image = image;
+         this.datenaissance = datenaissance;
+    }
+
+    public User( String nom, String prenom,int password, int cin, String role, String access, String image, String datenaissance) {
+       
+        this.nom = nom;
+        this.prenom = prenom;
+        this.password = password;
+        this.cin = cin;
         this.role = role;
         this.access = access;
         this.image = image;
+         this.datenaissance = datenaissance;
     
     }
 
-    public User(int id, int password, int cin, String nom, String prenom, String datenaissance, String role, String access, String image) {
+  
+
+    public User(int id, String nom, String prenom, int password, int cin , String role, String access, String image,String datenaissance) {
         this.id = id;
-        this.password = password;
-        this.cin = cin;
+       
         this.nom = nom;
         this.prenom = prenom;
-        this.datenaissance = datenaissance;
+        this.password = password;
+        this.cin = cin;
         this.role = role;
         this.access = access;
         this.image = image;
+         this.datenaissance = datenaissance;
        
     }
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", password=" + password + ", cin=" + cin + ", nom=" + nom + ", prenom=" + prenom + ", datenaissance=" + datenaissance + ", role=" + role + ", access=" + access + ", image=" + image + '}';
+        return "User{" + "id=" + id +  ", nom=" + nom + ", prenom=" + prenom +", password=" + password + ", cin=" + cin +  ", role=" + role + ", access=" + access + ", image=" + image +", datenaissance=" + datenaissance + '}';
     }
 
     public int getId() {

@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
+import com.mycompany.myapp.MyApplication;
 /**
  *
  * @author bhk
@@ -54,6 +54,33 @@ public class ServiceUser {
         req.addArgument("CIN", t.getCin()+"");
        req.addArgument("Password", t.getPassword()+"");
         req.addArgument("Role", t.getRole());
+       req.addArgument("Access", t.getAccess()+"");
+        req.addArgument("image", t.getImage());
+       req.addArgument("datenaissance", t.getDatenaissance()+"");
+       
+       req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200; //Code HTTP 200 OK
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+    }
+      public boolean addUserf(User t) {
+        System.out.println(t);
+        System.out.println("********");
+     //  String url = Statics.BASE_URL + "create?name=" + t.getName() + "&status=" + t.getStatus()+ "&status=" + t.getStatus()+ "&status=" + t.getStatus()+ "&status=" + t.getStatus()+ "&status=" + t.getStatus()+ "&status=" + t.getStatus()+ "&status=" + t.getStatus();
+       String url = Statics.BASE_URL + "user/addUserjf";
+    
+       req.setUrl(url);
+       //tfNom,tfPrenom,tfPassword,tfDatenaissance,tfRole,tfAccess,tfImage,tfCin
+       req.addArgument("Nom", t.getNom());
+       req.addArgument("Prenom", t.getPrenom()+"");
+        req.addArgument("CIN", t.getCin()+"");
+       req.addArgument("Password", t.getPassword()+"");
+        //req.addArgument("Role", t.getRole());
        req.addArgument("Access", t.getAccess()+"");
         req.addArgument("image", t.getImage());
        req.addArgument("datenaissance", t.getDatenaissance()+"");
@@ -148,7 +175,22 @@ public class ServiceUser {
         NetworkManager.getInstance().addToQueueAndWait(req);
         return Users;
     }
-
+public ArrayList<User> getAUser(User i,int t){
+        //String url = Statics.BASE_URL+"/Users/";
+        String url = Statics.BASE_URL +"user/AUser?id="+i.getId();
+        req.setUrl(url);
+     
+        
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                Users = parseUsers(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return Users;
+    }
       public boolean deleteUser(int t) {
         System.out.println(t);
         System.out.println("******");
@@ -167,7 +209,24 @@ public class ServiceUser {
         NetworkManager.getInstance().addToQueueAndWait(req);
       return resultOK;
     }
-   
+    public boolean deleteUserf(int t) {
+        System.out.println(t);
+        System.out.println("******");
+     
+       String url = Statics.BASE_URL + "user/deleteyff?id="+t;
+       //String url = Statics.BASE_URL + "addTournoij";
+       req.setUrl(url);
+      req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200; //Code HTTP 200 OK
+                req.removeResponseListener(this);
+            }
+        });
+    
+        NetworkManager.getInstance().addToQueueAndWait(req);
+      return resultOK;
+    }
          public ArrayList<User> RechercheU(String t){
     
         //String url = Statics.BASE_URL+"/Students/";
@@ -226,6 +285,94 @@ public class ServiceUser {
     
         NetworkManager.getInstance().addToQueueAndWait(req);
       return resultOK;
+    }
+         public boolean updateUserf(User t) {
+        System.out.println(t);
+        System.out.println("******");
+         String url = Statics.BASE_URL + "user/updateUserjfff?id="+t.getId();
+       req.setUrl(url);
+       //tfNom,tfPrenom,tfPassword,tfDatenaissance,tfRole,tfAccess,tfImage,tfCin
+        
+       req.addArgument("Nom", t.getNom());
+       req.addArgument("Prenom", t.getPrenom()+"");
+        req.addArgument("CIN", t.getCin()+"");
+       req.addArgument("Password", t.getPassword()+"");
+        //req.addArgument("Role", t.getRole());
+       req.addArgument("Access", t.getAccess()+"");
+        req.addArgument("image", t.getImage());
+       req.addArgument("datenaissance", t.getDatenaissance()+"");
+      req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200; //Code HTTP 200 OK
+                req.removeResponseListener(this);
+            }
+        });
+    
+        NetworkManager.getInstance().addToQueueAndWait(req);
+      return resultOK;
+    }
+         public User ConnectUser(User u){
+      
+
+         String url = Statics.BASE_URL+"user/cnJson?username="+u.getCin()+"&mdp="+u.getPassword();
+        req.setUrl(url);
+       //req.setPost(false);
+         req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                try {
+                    MyApplication.u_c = new User(getUser(new String(req.getResponseData())));
+                      System.out.println(MyApplication.u_c.getId()+"+"+MyApplication.u_c.getRole());
+                } catch (IOException ex) {
+                  //  Logger.getLogger(ServiceUser.class.getName()).log(Level.SEVERE, null, ex);
+                }
+               
+            System.out.println(MyApplication.u_c.getId()+"+"+MyApplication.u_c.getRole());
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return MyApplication.u_c;
+        
+    }
+     public User getUser(String jsontext) throws IOException{
+  
+             if(jsontext.length()>4)
+             {
+               
+                 JSONParser j = new JSONParser();
+              JSONParser j2 = new JSONParser();
+            Map<String,Object> obj = j.parseJSON(new CharArrayReader(jsontext.toCharArray()));
+                
+             
+               String nom = obj.get("Nom").toString();
+                 String prenom = obj.get("Prenom").toString();
+//String password = obj.get("Password").toString();
+String role = obj.get("Role").toString();
+String img = obj.get("image").toString();
+String access = obj.get("Access").toString();
+String datenaissance = obj.get("datenaissance").toString();
+//Badge badge = (Badge)obj.get("badge");
+float cin =  Float.parseFloat(obj.get("CIN").toString());
+float password =  Float.parseFloat(obj.get("Password").toString());
+float id = Float.parseFloat(obj.get("id").toString());
+//Badge bad = new Badge();
+User b = new User(nom,prenom,(int)password,(int)cin,role,access,img,datenaissance);
+b.setId((int)id);
+              System.out.println(b);
+          
+                     return b;
+             }
+             else
+             {
+                 User uc = new User();
+            
+                  return uc;
+             }
+                    
+                  
+
     }
 }
 

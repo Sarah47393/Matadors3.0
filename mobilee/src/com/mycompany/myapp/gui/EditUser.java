@@ -138,7 +138,7 @@ public class EditUser extends Form {
                 {
                  
                         //SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd");
-                     User t = new User(ez,Integer.parseInt(tfPassword.getText()),Integer.parseInt(tfCin.getText()), tfNom.getText(),tfPrenom.getText(),tfDatenaissance.getText(),tfRole.getText(),tfAccess.getText(),fileNameInServer);
+                     User t = new User(ez,tfNom.getText(),tfPrenom.getText(),Integer.parseInt(tfPassword.getText()),Integer.parseInt(tfCin.getText()),tfRole.getText(),tfAccess.getText(),fileNameInServer,tfDatenaissance.getText());
 
                     if( ServiceUser.getInstance().updateUser(t))
                     {
